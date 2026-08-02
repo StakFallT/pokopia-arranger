@@ -18,21 +18,6 @@ from .combination_scoring import evaluate_combination
 
 from dataclasses import dataclass
 
-
-
-@dataclass(slots=True)
-class SelectionContext:
-    """
-    Information about the current selection pass.
-    """
-
-    current_tick: int
-    notes: list[NoteEvent]
-    active_indices: list[int]
-    previous_selection: set[int]
-    max_polyphony: int
-
-
 @dataclass(slots=True)
 class VoiceState:
     melody: NoteEvent | None = None
@@ -56,7 +41,7 @@ def choose_notes(
 
     for combo in combinations(note_indices, config.max_polyphony):
 
-        result = evaluate_combination(
+        score = evaluate_combination(
             selected_indices=combo,
             notes=notes,
             active_notes=active_notes,
@@ -65,8 +50,6 @@ def choose_notes(
             previous_selection=previous_selection,
             config=config,
         )
-
-        score = result.total
 
         if debug is not None and debug.enabled:
             debug.log(
