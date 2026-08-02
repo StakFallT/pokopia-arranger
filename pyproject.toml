@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pokopia-arranger"
+version = "0.1.0"
+description = "Automatic MIDI arranger for Pokemon Pokopia MatMaker"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+authors = [
+    { name = "Mark Venezia" }
+]
+
+dependencies = [
+    "mido>=1.3.2"
+]
+
+[project.scripts]
+pokopia-arranger = "pokopia_arranger.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+include = ["pokopia_arranger*"]
